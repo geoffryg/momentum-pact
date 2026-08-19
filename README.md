@@ -29,14 +29,16 @@ runtime.
 ## Run the dashboard
 
 Momentum Pact requires Python 3.11 or newer with Tk/Tcl support.
+It is currently tested on Linux; Windows and macOS support has not yet been
+verified.
 
 ```sh
 python3 -m momentum_pact.app
 ```
 
-Installed copies use the operating system's per-user data directory by default
-(`$XDG_DATA_HOME/momentum-pact` on Linux, with the usual `~/.local/share`
-fallback). Set an exact path with either `--data` or `MOMENTUM_PACT_DATA`:
+Installed copies use the operating system's standard per-user application-data
+directory by default. Set an exact path with either `--data` or
+`MOMENTUM_PACT_DATA`:
 
 ```sh
 python3 -m momentum_pact.app --data /path/to/accountability.json
