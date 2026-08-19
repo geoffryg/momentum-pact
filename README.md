@@ -2,6 +2,8 @@
 
 > Make a pact; seize momentum.
 
+![Momentum Pact dashboard showing commitment states, status summaries, completion criteria, and history](docs/images/dashboard.png)
+
 Momentum Pact is a local-first accountability and executive-functioning
 scaffold. It turns commitments into observable completion criteria,
 dependencies, scheduled check-ins, and reviewable history without punitive
