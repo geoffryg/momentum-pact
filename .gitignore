@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.venv/
+build/
+dist/
+*.egg-info/
+.env
+.env.*
+*.log
+
+# Accountability data is personal and must never enter version control.
+momentum_pact/data/*.json
+momentum_pact/data/*.tmp

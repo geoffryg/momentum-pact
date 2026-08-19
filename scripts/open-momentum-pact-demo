@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eu
+
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$repo_dir"
+
+if command -v setsid >/dev/null 2>&1; then
+  setsid --fork python3 -m momentum_pact.demo --launch </dev/null >/dev/null 2>&1
+else
+  nohup python3 -m momentum_pact.demo --launch </dev/null >/dev/null 2>&1 &
+fi
