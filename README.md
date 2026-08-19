@@ -44,14 +44,11 @@ directory by default. Set an exact path with either `--data` or
 python3 -m momentum_pact.app --data /path/to/accountability.json
 ```
 
-The repository launch scripts explicitly retain the checkout-local
-`momentum_pact/data/accountability.json` path for existing development data.
-
 To launch a disposable product tour containing only fictional general-purpose
 tasks:
 
 ```sh
-./scripts/open-momentum-pact-demo
+python3 -m momentum_pact.demo --launch
 ```
 
 Demo data lives in a temporary directory and is discarded when the window

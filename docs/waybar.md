@@ -10,8 +10,8 @@ file directly. It does not restart or signal Waybar when commitments change.
 {
   "custom/momentum-pact": {
     "return-type": "json",
-    "exec": "$HOME/dev/momentum-pact/scripts/momentum-pact-waybar",
-    "on-click": "$HOME/dev/momentum-pact/scripts/open-momentum-pact"
+    "exec": "$HOME/dev/momentum-pact/scripts/linux/momentum-pact-waybar",
+    "on-click": "$HOME/dev/momentum-pact/scripts/linux/open-momentum-pact"
   }
 }
 ```
