@@ -3,5 +3,6 @@
 set -eu
 
 repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+data_file="$repo_dir/momentum_pact/data/accountability.json"
 cd "$repo_dir"
-exec python3 -m momentum_pact.integrations.waybar --watch
+exec python3 -m momentum_pact.integrations.waybar --watch --data "$data_file"

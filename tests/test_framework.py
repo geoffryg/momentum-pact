@@ -1,7 +1,9 @@
 import json
+import os
 import tempfile
+import time
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from momentum_pact.framework import (
@@ -95,7 +97,10 @@ class AccountabilityStoreTests(unittest.TestCase):
         updated = self.store.commitment(item["id"])
         self.assertEqual(updated["status"], "in_progress")
         self.assertEqual(self.store.check_ins_for(item["id"])[0]["id"], check_in["id"])
-        self.assertEqual(updated["check_in_at"], "2026-08-14T20:00-06:00")
+        expected = datetime(2026, 8, 14, 20, 0).astimezone().isoformat(
+            timespec="minutes"
+        )
+        self.assertEqual(updated["check_in_at"], expected)
 
     def test_done_check_in_completes_commitment(self):
         item = self.store.add_commitment("Submit form", "2026-09-01 12:00")
@@ -394,6 +399,27 @@ class AccountabilityStoreTests(unittest.TestCase):
             parse_datetime("2025-11-12 23:59").utcoffset(),
             winter.astimezone().utcoffset(),
         )
+
+    @unittest.skipUnless(hasattr(time, "tzset"), "requires POSIX timezone support")
+    def test_wall_clock_dates_follow_the_host_timezone(self):
+        previous = os.environ.get("TZ")
+        try:
+            os.environ["TZ"] = "UTC0"
+            time.tzset()
+            utc_value = parse_datetime("2026-08-14 20:00")
+
+            os.environ["TZ"] = "EST5"
+            time.tzset()
+            eastern_value = parse_datetime("2026-08-14 20:00")
+        finally:
+            if previous is None:
+                os.environ.pop("TZ", None)
+            else:
+                os.environ["TZ"] = previous
+            time.tzset()
+
+        self.assertEqual(utc_value.utcoffset(), timedelta(0))
+        self.assertEqual(eastern_value.utcoffset(), timedelta(hours=-5))
 
     def test_countdown_preserves_original_day_hour_minute_second_format(self):
         now = datetime(2026, 8, 13, 12, 0, 0, tzinfo=timezone.utc)

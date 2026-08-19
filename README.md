@@ -24,6 +24,11 @@ and actionable without making pressure the mechanism of execution.
 Momentum Pact stores data locally and uses only the Python standard library at
 runtime.
 
+Dates entered without an explicit UTC offset are interpreted in the local time
+zone reported by the machine running Momentum Pact. Saved timestamps include
+their UTC offset and are displayed in the local time zone of the machine viewing
+them; no regional time zone is hardcoded.
+
 ## Run the dashboard
 
 Momentum Pact requires Python 3.11 or newer with Tk/Tcl support.
@@ -32,12 +37,16 @@ Momentum Pact requires Python 3.11 or newer with Tk/Tcl support.
 python3 -m momentum_pact.app
 ```
 
-The default data file is `momentum_pact/data/accountability.json`. That path is
-ignored by Git. You can keep data elsewhere with:
+Installed copies use the operating system's per-user data directory by default
+(`$XDG_DATA_HOME/momentum-pact` on Linux, with the usual `~/.local/share`
+fallback). Set an exact path with either `--data` or `MOMENTUM_PACT_DATA`:
 
 ```sh
 python3 -m momentum_pact.app --data /path/to/accountability.json
 ```
+
+The repository launch scripts explicitly retain the checkout-local
+`momentum_pact/data/accountability.json` path for existing development data.
 
 To launch a disposable product tour containing only fictional general-purpose
 tasks:
@@ -91,5 +100,17 @@ python3 -m compileall -q momentum_pact
 python3 -m unittest discover -s tests -v
 ```
 
-The project is under active development. Repository visibility and licensing
-will be decided deliberately before its first public release.
+## Contributing
+
+By intentionally submitting a contribution for inclusion in Momentum Pact, you
+license that contribution under the Apache License 2.0 unless you clearly state
+otherwise. Please identify any third-party material and its license, and only
+submit work you have the authority to contribute.
+
+## License
+
+Momentum Pact is licensed under the [Apache License 2.0](LICENSE).
+
+Thanks for taking a peek. I hope you find it as useful as I do.
+
+More to come.

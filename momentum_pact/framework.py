@@ -29,7 +29,6 @@ def default_data() -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "profile": {
             "display_name": "",
-            "timezone": "",
         },
         "goals": [],
         "goal_revisions": [],
