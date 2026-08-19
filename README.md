@@ -26,11 +26,6 @@ and actionable without making pressure the mechanism of execution.
 Momentum Pact stores data locally and uses only the Python standard library at
 runtime.
 
-Dates entered without an explicit UTC offset are interpreted in the local time
-zone reported by the machine running Momentum Pact. Saved timestamps include
-their UTC offset and are displayed in the local time zone of the machine viewing
-them; no regional time zone is hardcoded.
-
 ## Run the dashboard
 
 Momentum Pact requires Python 3.11 or newer with Tk/Tcl support.
