@@ -8,7 +8,8 @@ The server exposes exactly two tools:
 
 - `listCommitments()` returns a compact index of all commitments, including
   completed, triaged, and archived records. Each entry contains only `id`,
-  `title`, `status`, `due`, `priority`, and `goal_id`.
+  `title`, `status`, `due`, `priority`, `goal_id`, and the computed
+  `display_status`.
 - `getCommitment(id)` returns the complete record for one commitment id when
   its detailed context is actually needed.
 

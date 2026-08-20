@@ -52,7 +52,15 @@ class MCPReadToolsTests(unittest.TestCase):
         self.assertTrue(
             all(
                 set(item)
-                == {"id", "title", "status", "due", "priority", "goal_id"}
+                == {
+                    "id",
+                    "title",
+                    "status",
+                    "due",
+                    "priority",
+                    "goal_id",
+                    "display_status",
+                }
                 for item in result
             )
         )
@@ -60,6 +68,7 @@ class MCPReadToolsTests(unittest.TestCase):
             item for item in result if item["id"] == open_item["id"]
         )
         self.assertEqual(listed_open_item["due"], open_item["due_at"])
+        self.assertEqual(listed_open_item["display_status"], "planned")
 
     def test_get_commitment_returns_a_copy_with_display_status(self):
         item = self.store.add_commitment(

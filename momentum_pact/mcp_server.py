@@ -22,6 +22,7 @@ def list_commitments(data_path: str | Path) -> list[dict[str, Any]]:
             "due": commitment["due_at"],
             "priority": commitment["priority"],
             "goal_id": commitment.get("goal_id"),
+            "display_status": commitment["display_status"],
         }
         for commitment in store.commitments(
             include_closed=True,
