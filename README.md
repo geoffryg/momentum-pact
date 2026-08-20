@@ -23,8 +23,8 @@ and actionable without making pressure the mechanism of execution.
 - A neutral disposable demo covering every major state
 - An optional, independently documented Waybar integration
 
-Momentum Pact stores data locally and uses only the Python standard library at
-runtime.
+Momentum Pact stores data locally, and its core runtime uses only the Python
+standard library.
 
 ## Run the dashboard
 
@@ -85,6 +85,10 @@ Run `python3 -m momentum_pact.cli --help` for the complete command surface.
 - `Ctrl+Q`: quit
 
 ## Optional integrations
+
+An optional read-only local MCP server exposes `listCommitments()` and
+`getCommitment(id)` directly from the accountability store. See
+[docs/mcp.md](docs/mcp.md) for installation and launch instructions.
 
 Waybar support is intentionally isolated from the core workflow. See
 [docs/waybar.md](docs/waybar.md) if it is relevant to your Linux desktop.

@@ -11,9 +11,13 @@ license = "Apache-2.0"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.optional-dependencies]
+mcp = ["mcp>=2,<3"]
+
 [project.scripts]
 momentum-pact = "momentum_pact.app:main"
 momentum-pact-cli = "momentum_pact.cli:main"
+momentum-pact-mcp = "momentum_pact.mcp_server:main"
 momentum-pact-waybar = "momentum_pact.integrations.waybar:main"
 
 [project.urls]
