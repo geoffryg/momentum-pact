@@ -12,9 +12,22 @@ from .paths import DEFAULT_DATA_PATH
 
 
 def list_commitments(data_path: str | Path) -> list[dict[str, Any]]:
-    """Read every commitment, including closed and archived commitments."""
+    """Read a compact index of every commitment, including archived ones."""
     store = AccountabilityStore(data_path)
-    return store.commitments(include_closed=True, include_archived=True)
+    return [
+        {
+            "id": commitment["id"],
+            "title": commitment["title"],
+            "status": commitment["status"],
+            "due": commitment["due_at"],
+            "priority": commitment["priority"],
+            "goal_id": commitment.get("goal_id"),
+        }
+        for commitment in store.commitments(
+            include_closed=True,
+            include_archived=True,
+        )
+    ]
 
 
 def get_commitment(data_path: str | Path, commitment_id: str) -> dict[str, Any]:
@@ -31,7 +44,7 @@ def register_tools(server: Any, data_path: str | Path) -> Any:
 
     @server.tool(name="listCommitments")
     async def list_commitments_tool() -> list[dict[str, Any]]:
-        """List all Momentum Pact commitments. This tool is read-only."""
+        """List compact summaries of all commitments. This tool is read-only."""
         return list_commitments(resolved_path)
 
     @server.tool(name="getCommitment")

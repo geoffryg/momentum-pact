@@ -32,8 +32,14 @@ class MCPReadToolsTests(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
-    def test_list_commitments_returns_open_closed_and_archived_records(self):
-        open_item = self.store.add_commitment("Open item", "2030-01-01 12:00")
+    def test_list_commitments_returns_only_compact_index_fields(self):
+        open_item = self.store.add_commitment(
+            "Open item",
+            "2030-01-01 12:00",
+            why="Private rationale",
+            notes="Private notes",
+            win_conditions=["Private completion criterion"],
+        )
         closed_item = self.store.add_commitment("Closed item", "2030-01-02 12:00")
         self.store.set_commitment_status(closed_item["id"], "completed")
         self.store.archive_commitment(closed_item["id"])
@@ -43,15 +49,32 @@ class MCPReadToolsTests(unittest.TestCase):
         self.assertEqual(
             {item["id"] for item in result}, {open_item["id"], closed_item["id"]}
         )
-        self.assertTrue(all("display_status" in item for item in result))
+        self.assertTrue(
+            all(
+                set(item)
+                == {"id", "title", "status", "due", "priority", "goal_id"}
+                for item in result
+            )
+        )
+        listed_open_item = next(
+            item for item in result if item["id"] == open_item["id"]
+        )
+        self.assertEqual(listed_open_item["due"], open_item["due_at"])
 
     def test_get_commitment_returns_a_copy_with_display_status(self):
-        item = self.store.add_commitment("Read one item", "2030-01-01 12:00")
+        item = self.store.add_commitment(
+            "Read one item",
+            "2030-01-01 12:00",
+            why="Full-record rationale",
+            notes="Full-record notes",
+        )
 
         result = get_commitment(self.data_path, item["id"])
         result["title"] = "Changed outside the store"
 
         self.assertEqual(result["display_status"], "planned")
+        self.assertEqual(result["why"], "Full-record rationale")
+        self.assertEqual(result["notes"], "Full-record notes")
         self.assertEqual(
             AccountabilityStore(self.data_path).commitment(item["id"])["title"],
             "Read one item",

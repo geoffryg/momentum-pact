@@ -6,9 +6,11 @@ directly; it does not invoke the CLI or any shell command.
 
 The server exposes exactly two tools:
 
-- `listCommitments()` returns all commitments, including completed, triaged, and
-  archived records.
-- `getCommitment(id)` returns the complete record for one commitment id.
+- `listCommitments()` returns a compact index of all commitments, including
+  completed, triaged, and archived records. Each entry contains only `id`,
+  `title`, `status`, `due`, `priority`, and `goal_id`.
+- `getCommitment(id)` returns the complete record for one commitment id when
+  its detailed context is actually needed.
 
 There are no write, email, network, reminder, or autonomous-action tools.
 
